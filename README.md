@@ -11,4 +11,4 @@
 - fix remaining bugs (script/index.ts)
 - language component js / react
 - clean codes & logs
-- serve on toolstack
+- serve on golingo.toolstack.run ✅
