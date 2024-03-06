@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "bun next dev -p 3001 --turbo",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3008",
     "lint": "next lint",
     "typegen": "pocketbase-typegen --db ../pb/pb_data/data.db -o src/shared/models/entities/pocketbase-types.ts",
     "script": "bun build ./script/index.ts --outfile ./public/script.js --minify --target browser --format esm --watch"

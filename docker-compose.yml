@@ -10,7 +10,7 @@ services:
     environment:
       ENCRYPTION: example #optional
     ports:
-      - "8090:8090"
+      - "8092:8090"
     volumes:
       - ./pb/data:/pb_data
       - ./pb/hooks:/pb_hooks #optional
