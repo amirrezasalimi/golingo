@@ -23,8 +23,8 @@ services:
     networks:
       - traefik_traefik
     
-  airoadmap_frontend:
-    container_name: aigolingo-frontend
+  golingo_frontend:
+    container_name: golingo-frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
