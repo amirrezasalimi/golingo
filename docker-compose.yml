@@ -1,0 +1,46 @@
+version: '3'
+services:
+  pocketbase:
+    image: ghcr.io/muchobien/pocketbase:latest
+    container_name: pocketbase
+    restart: always
+    command:
+      - --encryptionEnv #optional
+      - ENCRYPTION #optional
+    environment:
+      ENCRYPTION: example #optional
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./pb/data:/pb_data
+      - ./pb/hooks:/pb_hooks #optional
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.golingo-backend.rule=Host(`gl-pb.toolstack.run`)"
+      - "traefik.http.routers.golingo-backend.entrypoints=websecure"
+      - "traefik.http.routers.golingo-backend.tls=true"
+      - "traefik.http.routers.golingo-backend.tls.certresolver=myresolver"
+    networks:
+      - traefik_traefik
+    
+  airoadmap_frontend:
+    container_name: aigolingo-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3008:3008"
+    volumes:
+      - .:/frontend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.golingo-frontend.rule=Host(`golingo.toolstack.run`)"
+      - "traefik.http.routers.golingo-frontend.entrypoints=websecure"
+      - "traefik.http.routers.golingo-frontend.tls=true"
+      - "traefik.http.routers.golingo-frontend.tls.certresolver=myresolver"
+    networks:
+      - traefik_traefik
+    restart: always
+networks:
+  traefik_traefik:
+    external: true
