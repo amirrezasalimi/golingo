@@ -3,13 +3,15 @@ import { WebsitePagesResponse } from "@/shared/models/entities/pocketbase-types"
 import { WebsiteTranslates, WebsiteTranslatesFull } from "@/shared/models/website";
 import { NextApiRequest, NextApiResponse } from "next";
 import langs from "@/shared/data/langs.json"
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+import { NextRequest } from "next/server";
+export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url ?? "");
     const code = searchParams.get("code");
     const path = searchParams.get("path") ?? "/";
     if (!code) {
         return Response.json({
             error: "code is required",
+            // @ts-ignore
             data: req.query,
         }, {
             status: 400
