@@ -14,6 +14,7 @@ import AsyncTalk from "../shared/async-talk";
 class GoLingo {
   constructor() {}
   code: string | null = null;
+  host: string = "http://localhost:3001/";
 
   ignoredTags: string[] = [
     "iframe",
@@ -49,10 +50,13 @@ class GoLingo {
     oldTranslatedPath: null as string | null,
     oldTranslatedLang: null as string | null,
   });
-  async init({ code }: { code: string }) {
+  async init({ code, host }: { code: string; host: string }) {
     if (!code) {
       console.error("## GoLingo Error: code is required");
       return;
+    }
+    if (host) {
+      this.host = host;
     }
     if (this.data.initialized) {
       console.info("## GoLingo Error: already initialized");
@@ -292,7 +296,7 @@ class GoLingo {
     const path = this.getPath();
     const code = this.code;
     if (code) {
-      const data = await loadTranslations(code, path);
+      const data = await loadTranslations(this.host, code, path);
       this.data.translates[path] = data;
     }
   }

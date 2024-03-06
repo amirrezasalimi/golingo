@@ -1,5 +1,4 @@
 import { WebsiteTranslatesFull } from "@/shared/models/website";
-import { GOLINGO_HOST } from "./constants";
 import { TextItem } from "../shared/shared-types";
 
 // utils
@@ -145,9 +144,9 @@ const identifyTexts = (node: Node, excludedTags: string[]): TextItem[] => {
 };
 
 // load translations datas from api
-const loadTranslations = async (websiteCode: string, path: string) => {
+const loadTranslations = async (host:string,websiteCode: string, path: string) => {
   const response = await fetch(
-    `${GOLINGO_HOST}api/tr?code=${websiteCode}&path=${path}`
+    `${host}api/tr?code=${websiteCode}&path=${path}`
   );
   const data = await response.json();
   return {

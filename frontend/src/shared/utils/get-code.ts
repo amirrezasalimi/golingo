@@ -3,7 +3,7 @@ export default function getScriptCode(id: string) {
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         if (typeof window.golingo != "undefined") {
-            golingo.init({ code: '${id}' })
+            golingo.init({ code: '${id}',host: '${process.env.NEXT_PUBLIC_HOST_URL}')
         }
     })
 </script>`;
