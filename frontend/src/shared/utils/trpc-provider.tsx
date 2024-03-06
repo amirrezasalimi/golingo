@@ -20,9 +20,8 @@ export const TrpcProvider: React.FC<{ children: React.ReactNode }> = ({
             onError(error, variables, context) {
               toast.error(error.message);
             },
-          }
+          },
         },
-
       })
   );
 
@@ -37,6 +36,7 @@ export const TrpcProvider: React.FC<{ children: React.ReactNode }> = ({
           enabled: () => true,
         }),
         httpBatchLink({
+          transformer: superjson,
           url,
           fetch: async (input, init?) => {
             const fetch = getFetch();
@@ -48,14 +48,13 @@ export const TrpcProvider: React.FC<{ children: React.ReactNode }> = ({
           headers() {
             if (pb_client.authStore.isValid) {
               return {
-                "x-pb": pb_client.authStore.token
-              }
+                "x-pb": pb_client.authStore.token,
+              };
             }
             return {};
-          }
+          },
         }),
       ],
-      transformer: superjson,
     })
   );
   return (
