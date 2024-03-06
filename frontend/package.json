@@ -21,6 +21,7 @@
     "@trpc/server": "next",
     "@untitled-ui/icons-react": "^0.1.2",
     "add": "^2.0.6",
+    "async-post-message": "^0.1.0",
     "bindings": "^1.5.0",
     "cheerio": "^1.0.0-rc.12",
     "clsx": "^2.1.0",

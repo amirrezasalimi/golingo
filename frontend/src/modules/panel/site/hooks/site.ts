@@ -73,7 +73,7 @@ const useSite = () => {
     const updateWebsite = trpc.updateWebsiteData.useMutation({
         onSuccess(_, variables, context) {
             data.refetch();
-            toast.success("updated successfully");
+            // toast.success("updated successfully");
         },
     });
     const changeMainLang = (lang: string) => {
@@ -113,7 +113,7 @@ const useSite = () => {
     const updatePage = trpc.updatePageData.useMutation({
         onSuccess(_, variables, context) {
             pagesQuery.refetch();
-            toast.success("updated successfully");
+            // toast.success("updated successfully");
         },
     });
 

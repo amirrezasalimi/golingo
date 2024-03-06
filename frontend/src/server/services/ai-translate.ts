@@ -2,8 +2,8 @@ import { OpenAI } from "openai";
 import langs from "@/shared/data/langs.json";
 
 const ai = new OpenAI({
-  apiKey: process.env.NEXT_PUBLIC_GPT_HOST,
-  baseURL: process.env.NEXT_PUBLIC_GPT_KEY,
+  apiKey: process.env.NEXT_PUBLIC_GPT_KEY,
+  baseURL: process.env.NEXT_PUBLIC_GPT_HOST,
 });
 export const aiTranslateTexts = async (
   data: {
@@ -16,7 +16,10 @@ export const aiTranslateTexts = async (
   const fromLangNative = langs[from as keyof typeof langs]?.native;
   const toLangNative = langs[to as keyof typeof langs]?.native;
 
-  let newData = [...data];
+  let newData: {
+    id: string;
+    text: string;
+  }[] = [];
   const texts = data.map((d) => d.text);
   const chunkSize = 10;
   for (let i = 0; i < texts.length; i += chunkSize) {
@@ -39,7 +42,10 @@ export const aiTranslateTexts = async (
       if (response.choices[0].message.content) {
         const translated = JSON.parse(response.choices[0].message.content);
         for (let j = 0; j < chunk.length; j++) {
-          newData[i + j].text = translated[j];
+          newData.push({
+            id: data[i + j].id,
+            text: translated[j],
+          });
         }
       }
     } catch (error) {
